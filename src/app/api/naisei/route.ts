@@ -41,9 +41,9 @@ export const POST = async (req: Request, res: NextResponse) => {
   console.log("POST");
 
   try {
-    const { naisei, evaluation_type, created_at } = await req.json();
+    const { naisei, evaluation_type } = await req.json();
     await main();
-    const createNaisei = await prisma.naisei.create({ data: { naisei, evaluation_type, created_at } });
+    const createNaisei = await prisma.naisei.create({ data: { naisei, evaluation_type } });
     return NextResponse.json({ message: "Success", createNaisei }, { status: 201 });
   } catch (err) {
     return NextResponse.json({ message: "Error", err }, { status: 500 });

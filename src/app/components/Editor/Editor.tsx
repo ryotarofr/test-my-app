@@ -110,6 +110,7 @@ export const Editor: FC<{
   const [evaluationType, setEvaluationType] = useState(EvaluationType.A);
   const [naisei, setNaisei] = useState('')
   const [naiseiId, setNaiseiId] = useState('')
+  const [currentDate, setCurrentDate] = useState('');
   const selectedDay = useDateStore((state) => state.selectedDay);
   // const setSelectedDay = useDateStore((state) => state.setSelectedDay);
   const footer = selectedDay ? (
@@ -122,17 +123,20 @@ export const Editor: FC<{
   useEffect(() => {
     setNaisei('');
     setNaiseiId('')
+    setCurrentDate('')
     async function fetchNaisei() {
       // fetch関数でリクエストを送る
       const response = await fetch(`http://localhost:3000/api/naisei/${footerDate}`);
       const resNaisei = await response.json();
       setNaisei(resNaisei.getNaiseiCreatedAt.naisei)
       setNaiseiId(resNaisei.getNaiseiCreatedAt.id)
-      console.log("naiseiId", naiseiId);
-
     }
     fetchNaisei();
+    const dayNow = new Date()
+    const changeFormatDay = format(dayNow, 'yyyy-MM-dd')
+    setCurrentDate(changeFormatDay);
   }, [selectedDay])
+  console.log("currentDate", currentDate);
 
   function onChange(editorState: any) {
     editorState.read(() => {
@@ -191,51 +195,39 @@ export const Editor: FC<{
   // if (!naisei) return <>loading...initialconfがデフォのEditor.tsxを表示</>;
 
   if (!naisei) {
-    // async function createNaisei() {
-    //   // fetch関数でリクエストを送る
-    //   const response = await fetch(`http://localhost:3000/api/naisei`, {
-    //     method: "POST",
-    //     body: JSON.stringify({ naisei, evaluation_type }),
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   });
-    //   return response.json();
-    // }
-    // createNaisei() 
-    const postBlog = async ({
-      naisei,
-      evaluation_type,
-      created_at,
-    }: {
-      naisei: string;
-      evaluation_type: any;
-      created_at: string
-    }) => {
-      const res = fetch("http://localhost:3000/api/naisei", {
-        method: "POST",
-        body: JSON.stringify({ naisei, evaluation_type }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      return (await res).json();
-    };
-    const defaultValue = '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"example.","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}'
-    const defaultDate = "2023-08-11T00:00:00.000Z"
-    const onCreate = async (e: React.FormEvent) => {
-      e.preventDefault();
+    if (currentDate === footerDate) {
+      const postBlog = async ({
+        naisei,
+        evaluation_type,
+      }: {
+        naisei: string;
+        evaluation_type: any;
+      }) => {
+        const res = fetch("http://localhost:3000/api/naisei", {
+          method: "POST",
+          body: JSON.stringify({ naisei, evaluation_type }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        return (await res).json();
+      };
+      const defaultValue = '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"example.","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}'
 
-      await postBlog({
-        naisei: defaultValue,
-        evaluation_type: "A",
-        created_at: defaultDate
-      });
+
+      const onCreate = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        await postBlog({
+          naisei: defaultValue,
+          evaluation_type: "A",
+        });
+      }
+      return <>{<Button onClick={onCreate} >create Naisei</Button>}</>
     }
-
-
-    return <button onClick={onCreate} >create Naisei</button>
+    return <><div className='text-white'>D'ont get api</div></>
   }
+
 
   return (
     <div className={styles.wrapper}>
