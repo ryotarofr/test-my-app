@@ -136,7 +136,7 @@ export default function Calendar() {
     //   naisei: data,
     //   evaluation_type: evaluationType,
     // });
-  }, [selectedDay])
+  }, [selectedDay, footerDate])
   // useEffect(() => {
 
   //   setData([]);

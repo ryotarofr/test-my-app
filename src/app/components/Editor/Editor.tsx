@@ -135,7 +135,7 @@ export const Editor: FC<{
     const dayNow = new Date()
     const changeFormatDay = format(dayNow, 'yyyy-MM-dd')
     setCurrentDate(changeFormatDay);
-  }, [selectedDay])
+  }, [selectedDay, footerDate])
   console.log("currentDate", currentDate);
 
   function onChange(editorState: any) {
@@ -167,7 +167,7 @@ export const Editor: FC<{
       return response
     }
     updateNaisei();
-  }, [selectedDay, setEvaluationType, handleUpdate])
+  }, [selectedDay, evaluationType, naisei, naiseiId])
 
 
   // const handleSubmit = async (e: SyntheticEvent) => {
@@ -260,7 +260,7 @@ export const Editor: FC<{
               ))}
             </select>
           </label>
-          <Button onClick={handleUpdate}>Update Naisei</Button>
+          {/* <Button onClick={handleUpdate}>Update Naisei</Button> */}
           <Toaster
             position="bottom-right"
             reverseOrder={false}
