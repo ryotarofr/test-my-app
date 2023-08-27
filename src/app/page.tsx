@@ -1,44 +1,45 @@
-import { PostProps, NaiseiProps, EvaluationType } from "./types";
+
 // import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { Editor } from "@/components/Editor/Editor";
-import { Layout } from "@/components/Layout";
+
 import { log } from "console";
+import { Layout } from "./components/Layout";
+import { EvaluationType } from "./types/types";
 
-async function fetchNaisei() {
-  const res = await fetch("http://localhost:3000/api/naisei", {
-    cache: "no-store",
-  });
+// async function fetchNaisei() {
+//   const res = await fetch("http://localhost:3000/api/naisei", {
+//     cache: "no-store",
+//   });
 
-  const data = await res.json();
+//   const data = await res.json();
 
-  return data.allNaisei;
-}
+//   return data.allNaisei;
+// }
 
-const postNaisei = async ({
-  naisei,
-  evaluation_type,
-}: {
-  naisei: string;
-  evaluation_type: EvaluationType;
-}) => {
-  const res = fetch("http://localhost:3000/api/naisei", {
-    method: "POST",
-    body: JSON.stringify({ naisei, evaluation_type }),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  return (await res).json();
-};
+// const postNaisei = async ({
+//   naisei,
+//   evaluation_type,
+// }: {
+//   naisei: string;
+//   evaluation_type: EvaluationType;
+// }) => {
+//   const res = fetch("http://localhost:3000/api/naisei", {
+//     method: "POST",
+//     body: JSON.stringify({ naisei, evaluation_type }),
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//   });
+//   return (await res).json();
+// };
 
 export default async function Home() {
   // const [evaluationType, setEvaluationType] = useState(EvaluationType.A);
   // const [data, setData] = useState<string>('');
   // const [serializedEditorState, setSerializedEditorState] = useState<string>("");
-  const allNaisei = await fetchNaisei();
+  // const allNaisei = await fetchNaisei();
   // console.log(allNaisei);
-  console.log("allnaisei", allNaisei);
+  // console.log("allnaisei", allNaisei);
 
 
   // useEffect(() => {

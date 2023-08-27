@@ -1,8 +1,10 @@
-import { EvaluationType } from '@/app/types';
+
 // import { useEffect, useState } from 'react';
 import Calendar from '../Calendar/Calendar';
 import { Editor } from '../Editor/Editor';
 import StarsCanvas from '../Canvas/Stars';
+import { EvaluationType } from '@/app/types/types';
+
 // import axios from 'axios';
 // import CreateNaiseiForm from './CreateNaiseiForm';
 

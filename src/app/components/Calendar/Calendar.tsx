@@ -59,9 +59,10 @@ import style from "./Calendar.module.css"
 
 import { useEffect, useState } from 'react';
 
-import { useDateStore } from '../../hooks/SelectDateStore';
-import { EvaluationType } from '@/app/types';
 import 'react-day-picker/dist/style.css';
+import { EvaluationType } from '@/app/types/types';
+import { useDateStore } from '@/app/hooks/SelectDateStore';
+
 
 interface Item {
   id: number;
